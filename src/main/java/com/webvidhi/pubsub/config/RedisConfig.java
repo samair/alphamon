@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -23,7 +24,13 @@ import com.webvidhi.pubsub.service.RedisMessageSubscriber;
 public class RedisConfig {
 	@Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory();
+		
+		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
+		config.setHostName("ec2-18-207-22-115.compute-1.amazonaws.com");
+		config.setPort(27949);
+		config.setPassword("pf80df249b7dc513aec481c23ad753c0a38d26bf1cb13be5d6af7c46b03deae4a");
+	
+        return new JedisConnectionFactory(config);
     }
 
     @Bean
