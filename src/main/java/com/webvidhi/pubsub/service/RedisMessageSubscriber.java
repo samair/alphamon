@@ -29,7 +29,15 @@ public class RedisMessageSubscriber implements MessageListener{
 	public void onMessage(Message message, byte[] pattern) {
 		// TODO Auto-generated method stub
 		System.out.println("Recieved Message!!"+message);
-		sendEvnets(message);
+		
+		if (message.getBody().toString().contentEquals("devices")) {
+			
+			sendDeviceMessages(message);
+		}
+		else {
+			sendEvnets(message);
+		}
+		
 	
 		
 	}
@@ -44,10 +52,10 @@ public class RedisMessageSubscriber implements MessageListener{
 		 
 	}
 	
-	public void sendDeviceMessages(DeviceMsg msg) {
+	public void sendDeviceMessages(Message msg) {
 		
 		String topicName = "/topic/devices";
-		System.out.println("Sending to : " + topicName);
-		broker.convertAndSend(topicName,msg );
+		System.out.println("Sending Device Message to  : " + topicName);
+		broker.convertAndSend(topicName,msg.toString() );
 	}
 }
