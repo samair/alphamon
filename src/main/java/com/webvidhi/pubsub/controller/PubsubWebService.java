@@ -14,8 +14,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.webvidhi.pubsub.modal.DeviceMsg;
 import com.webvidhi.pubsub.modal.MetricSubscriber;
 import com.webvidhi.pubsub.modal.PerformanceMetrics;
-
-import com.webvidhi.pubsub.service.InfluxDbService;
+import com.webvidhi.pubsub.service.InfluxDBServiceCloudV2;
+//import com.webvidhi.pubsub.service.InfluxDbService;
 import com.webvidhi.pubsub.service.RedisMessagePublisher;
 
 @RestController
@@ -27,7 +27,7 @@ public class PubsubWebService {
 	MetricSubscriber subscribers;
 	
 	@Autowired 
-	InfluxDbService influxService;
+	InfluxDBServiceCloudV2 influxService;
 	
 	@Autowired
 	RedisMessagePublisher publisher;
@@ -38,7 +38,7 @@ public class PubsubWebService {
 	public String echo(@RequestBody PerformanceMetrics metrics) throws JsonProcessingException {
 		System.out.println(metrics.getMemUsage());
 	
-		//influxService.testWrite("Dev"+"0000000000fe456ab",body.get("mem_usage"));
+	    influxService.write(metrics);
 		publisher.publish(metrics);
 		return "echo";
 	}
