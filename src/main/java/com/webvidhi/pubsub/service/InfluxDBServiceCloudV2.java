@@ -3,6 +3,8 @@ package com.webvidhi.pubsub.service;
 import java.time.Instant;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.WriteApi;
@@ -12,6 +14,7 @@ import com.webvidhi.pubsub.modal.Cpu;
 import com.webvidhi.pubsub.modal.Memory;
 import com.webvidhi.pubsub.modal.PerformanceMetrics;
 
+@Service
 public class InfluxDBServiceCloudV2 {
 
 	private InfluxDBClient client;
