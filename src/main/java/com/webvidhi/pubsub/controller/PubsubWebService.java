@@ -46,8 +46,8 @@ public class PubsubWebService {
 	@PostMapping("/subscribe")
 	public void subscribe(@RequestParam String deviceId) {
 		
-		System.out.println("Adding device:"+deviceId);
-		subscribers.addSubscriber(deviceId);
+		//System.out.println("Adding device:"+deviceId);
+		//subscribers.addSubscriber(deviceId);
 	}
 	
 	@PostMapping("/register")
