@@ -1,6 +1,6 @@
 package com.webvidhi.pubsub.modal;
 
-import java.util.List;
+
 
 public class SessionMessage {
 	
@@ -12,16 +12,8 @@ public class SessionMessage {
 		this.deviceId = deviceId;
 	}
 
-	public List<String> getAttrs() {
-		return attrs;
-	}
-
-	public void setAttrs(List<String> attrs) {
-		this.attrs = attrs;
-	}
 
 	private String deviceId;
-	
-	private List<String> attrs;
+
 
 }
