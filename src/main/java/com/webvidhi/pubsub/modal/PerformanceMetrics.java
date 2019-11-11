@@ -20,7 +20,7 @@ public class PerformanceMetrics {
 
 	private float wifiUsage;
 	
-	private long timestamp;
+	private String timestamp;
 
 	public String getDeviceId() {
 		return deviceId;
@@ -94,11 +94,11 @@ public class PerformanceMetrics {
 		this.wifiUsage = wifiUsage;
 	}
 
-	public long getTimestamp() {
+	public String getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(long timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
