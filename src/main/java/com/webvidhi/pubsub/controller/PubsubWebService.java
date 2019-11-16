@@ -2,11 +2,13 @@ package com.webvidhi.pubsub.controller;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,7 +40,7 @@ public class PubsubWebService {
 	public String echo(@RequestBody PerformanceMetrics metrics) throws JsonProcessingException {
 		System.out.println(metrics.getMemUsage());
 	
-	    influxService.write(metrics);
+	    //influxService.write(metrics);
 		publisher.publish(metrics);
 		return "echo";
 	}
@@ -51,9 +53,17 @@ public class PubsubWebService {
 	}
 	
 	@PostMapping("/register")
-	public void register(@RequestBody DeviceMsg regMsg) throws JsonProcessingException {
-		System.out.println("Request to register : "+regMsg.getName());
-		publisher.publishAddDevice(regMsg);
+	public void register(@RequestHeader("Key") String apiKey, @RequestBody DeviceMsg regMsg) throws JsonProcessingException {
+		System.out.println("Request to register : "+regMsg.getName()+ "Key: "+apiKey);
+		//publisher.publishAddDevice(regMsg);
+	}
+	
+	@GetMapping("/apikey")
+	public String generateAPIKey() {
+		
+		 String generatedString = RandomStringUtils.randomAlphanumeric(30);
+		
+		return generatedString;
 	}
 	
 	
