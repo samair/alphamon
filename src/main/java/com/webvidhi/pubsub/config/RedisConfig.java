@@ -26,8 +26,9 @@ public class RedisConfig {
     JedisConnectionFactory jedisConnectionFactory() {
 		
 		RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
-		config.setHostName("ec2-18-207-22-115.compute-1.amazonaws.com");
-		config.setPort(27949);
+		
+		config.setHostName("ec2-52-5-132-36.compute-1.amazonaws.com");
+		config.setPort(22199);
 		config.setPassword("pf80df249b7dc513aec481c23ad753c0a38d26bf1cb13be5d6af7c46b03deae4a");
 	
         return new JedisConnectionFactory(config);
