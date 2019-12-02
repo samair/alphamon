@@ -39,6 +39,7 @@ public class PubsubWebService {
 	@PostMapping("/test")
 	public String echo(@RequestBody PerformanceMetrics metrics) throws JsonProcessingException {
 		System.out.println(metrics.getMemUsage());
+		System.out.println(metrics.getDeviceId());
 	
 	    //influxService.write(metrics);
 		publisher.publish(metrics);
