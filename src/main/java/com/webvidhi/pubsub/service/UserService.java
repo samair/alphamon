@@ -86,12 +86,13 @@ public class UserService {
 		return usrRepo.getDevices(userId).getDevices();
 	}
 
-	public void removeKey(String userID, String keyID) {
+	public List<APIKey>  removeKey(String userID, String keyID) {
 		
 		User user = usrRepo.findByUserId(userID);
 	
 		user.removekey(keyID);
 		usrRepo.save(user);
+		return usrRepo.getAPIKeys(userID).getKeyStore();
 		
 	}
 

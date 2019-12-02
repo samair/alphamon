@@ -74,8 +74,8 @@ public class UserController {
 		
 	}
 	@DeleteMapping("/apiKey")
-	public void deleteKey(@RequestParam String userID,@RequestParam String keyID) {
-		userService.removeKey(userID,keyID);
+	public List<APIKey> deleteKey(@RequestParam String userID,@RequestParam String keyID) {
+		return userService.removeKey(userID,keyID);
 	}
 	
 	@PostMapping("/validate")
