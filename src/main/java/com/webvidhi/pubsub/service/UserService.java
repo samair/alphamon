@@ -4,15 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import com.webvidhi.pubsub.config.JwtUtil;
 import com.webvidhi.pubsub.modal.APIKey;
 import com.webvidhi.pubsub.modal.Device;
+import com.webvidhi.pubsub.modal.JwtResponse;
 import com.webvidhi.pubsub.modal.User;
 import com.webvidhi.pubsub.repo.UsersRepository;
+
+import io.jsonwebtoken.Claims;
 
 
 
@@ -26,6 +31,9 @@ public class UserService {
 	@Autowired
 	MongoTemplate mongoTemplate;
 	
+	
+	JwtUtil jwt = new JwtUtil();
+	
 	public void createOrUpdate(User user) {
 
 		
@@ -38,12 +46,14 @@ public class UserService {
 		return user;
 	}
 
-	public String validate(String userName, String password) {
-		// TODO Auto-generated method stub
+	public JwtResponse validate(String userName, String password) {
+		
 		User user = usrRepo.findByUserName(userName);
 		if (user!= null && user.getPassword().contentEquals(password)) {
 			System.out.println("Valid!");
-			return user.get_id();
+			
+			//return user.get_id();
+			return jwt.generateToken(userName);
 		}
 		
 			return null;
@@ -95,5 +105,15 @@ public class UserService {
 		return usrRepo.getAPIKeys(userID).getKeyStore();
 		
 	}
+
+	public Claims getClaims(String token) {
+		return jwt.getClaimsfromToken(token);
+		//return null;
+	}
+	
+	@Bean
+  	public JwtUtil jwtUtil() {
+    	   return new JwtUtil();
+  	}
 
 }

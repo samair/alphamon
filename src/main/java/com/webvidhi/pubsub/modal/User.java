@@ -44,6 +44,10 @@ public class User {
 		
 		
 	}
+	public void addDevice(Device d) {
+		devices.add(d);
+		
+	}
 
 	
 

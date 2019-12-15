@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.webvidhi.pubsub.modal.APIKey;
 import com.webvidhi.pubsub.modal.Device;
+import com.webvidhi.pubsub.modal.JwtResponse;
 import com.webvidhi.pubsub.modal.User;
 import com.webvidhi.pubsub.service.UserService;
 
+import io.jsonwebtoken.Claims;
 import retrofit2.http.PUT;
 
 
@@ -79,7 +81,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/validate")
-	public String validate(@RequestBody Map<String,String> userInfo) {
+	public JwtResponse validate(@RequestBody Map<String,String> userInfo) {
 		return userService.validate(userInfo.get("user"), userInfo.get("pass"));
 	}
 	
@@ -93,5 +95,11 @@ public class UserController {
 		return userService.getAllDevices(userId);
 		 
 	}
+	
+	@GetMapping("/testJwt")
+	public Claims getClaims (@RequestParam String token) {
+		return userService.getClaims(token);
+	}
+	
 	
 }

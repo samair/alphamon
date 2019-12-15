@@ -1,31 +1,19 @@
 package com.webvidhi.pubsub.modal;
 
+import lombok.Getter;
+import lombok.Setter;
 
-
-
+@Getter @Setter
 public class APIKey {
 	
 	private String keyID;
 	
 	private String description;
 	
+	private String deviceId;
 	
 
-	public String getKeyID() {
-		return keyID;
-	}
 
-	public void setKeyID(String keyID) {
-		this.keyID = keyID;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	
 
