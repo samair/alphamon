@@ -90,11 +90,11 @@ public class UserController {
 		return userService.getUserByKey(key);
 		 
 	}
-	@GetMapping("/devices")
+	/*@GetMapping("/devices")
 	public List<Device> getDevices(@RequestParam String userId) {
 		return userService.getAllDevices(userId);
 		 
-	}
+	}*/
 	
 	@GetMapping("/devices")
 	public List<Device> getDevices() {
