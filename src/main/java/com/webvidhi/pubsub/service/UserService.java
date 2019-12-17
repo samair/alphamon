@@ -53,7 +53,7 @@ public class UserService {
 			System.out.println("Valid!");
 			
 			//return user.get_id();
-			return jwt.generateToken(userName);
+			return jwt.generateToken(user.get_id());
 		}
 		
 			return null;
