@@ -20,8 +20,9 @@ public class SecurityJwtConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.csrf().disable()
+		
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
+		.and().cors().disable()
 		.addFilterAfter(new JwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
 		.antMatchers("/v1/users/validate").permitAll()
