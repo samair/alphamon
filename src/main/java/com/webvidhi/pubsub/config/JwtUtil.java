@@ -16,8 +16,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtUtil {
 	
-	public static final long JWT_TOKEN_VALIDITY = 5*60;
-	
+	public static final long JWT_ACCESS_TOKEN_VALIDITY = 5*60;
+	public static final long JWT_REFRESH_TOKEN_VALIDITY = 5*60*60*12;
 	//@Value("${jwt.secret}")
 	private String secret ="javainuse";
 
@@ -26,9 +26,12 @@ public class JwtUtil {
 	public JwtResponse generateToken(String userName) {
 		Map<String,Object> claims = new HashMap<String, Object>();
 		String token = Jwts.builder().setClaims(claims).setSubject(userName).
-				setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000)).signWith(SignatureAlgorithm.HS256, secret).compact();
-				
-		return new JwtResponse(token);
+				setExpiration(new Date(System.currentTimeMillis() + JWT_ACCESS_TOKEN_VALIDITY*1000)).signWith(SignatureAlgorithm.HS256, secret).compact();
+		
+		// Create a refresh token and store in data base.
+		String refreshToken = Jwts.builder().setClaims(claims).setSubject(userName).setId("asdajhd").
+				setExpiration(new Date(System.currentTimeMillis() + JWT_REFRESH_TOKEN_VALIDITY*1000)).signWith(SignatureAlgorithm.HS256, secret).compact();
+		return new JwtResponse(token,refreshToken);
 				
 	}
 	
@@ -53,5 +56,10 @@ public class JwtUtil {
 		Claims claims = getClaimsfromToken(token);
 		System.out.println("Subject : "+claims.getSubject());
 		return claims.getSubject();
+	}
+
+	public JwtResponse generateRefreshedToken(String token) {
+		
+		return null;
 	}
 }
