@@ -5,10 +5,19 @@ import lombok.Setter;
 
 @Getter @Setter
 public class JwtResponse {
+	
+	private String tokenType ="bearer";
 
 	public JwtResponse(String token) {
-		bearerToken = token;
+		accessToken = token;
+	}
+	
+	public JwtResponse(String acToken, String rfToken) {
+		accessToken = acToken;
+		refreshToken = rfToken;
 	}
 
-	private String bearerToken;
+	private String accessToken;
+	
+	private String refreshToken;
 }

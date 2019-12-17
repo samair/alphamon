@@ -101,5 +101,9 @@ public class UserController {
 		return userService.getClaims(token);
 	}
 	
+	@PostMapping("/refresh_token")
+	public JwtResponse refreshToken (@RequestParam String token) {
+		return userService.getRefreshedToken(token);
+	}
 	
 }

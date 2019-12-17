@@ -116,4 +116,8 @@ public class UserService {
     	   return new JwtUtil();
   	}
 
+	public JwtResponse getRefreshedToken(String token) {
+		return jwt.generateRefreshedToken(token);
+	}
+
 }
