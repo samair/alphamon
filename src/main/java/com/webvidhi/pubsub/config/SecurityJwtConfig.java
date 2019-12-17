@@ -19,7 +19,7 @@ public class SecurityJwtConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.csrf().disable()
+		http.csrf().disable()  
 		
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().cors().disable()
@@ -27,6 +27,8 @@ public class SecurityJwtConfig extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/v1/users/validate").permitAll()
 		.anyRequest().authenticated();
+		
+		
 		
 	}
 	
