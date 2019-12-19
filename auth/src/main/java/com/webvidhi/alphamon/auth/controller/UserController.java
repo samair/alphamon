@@ -1,15 +1,12 @@
-package com.webvidhi.pubsub.controller;
+package com.webvidhi.alphamon.auth.controller;
 
 
 
 import java.util.List;
 import java.util.Map;
 
-import javax.websocket.server.PathParam;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.webvidhi.pubsub.modal.APIKey;
-import com.webvidhi.pubsub.modal.Device;
-import com.webvidhi.pubsub.modal.JwtResponse;
-import com.webvidhi.pubsub.modal.User;
-import com.webvidhi.pubsub.service.UserService;
+import com.webvidhi.alphamon.auth.modal.APIKey;
+import com.webvidhi.alphamon.auth.modal.JwtResponse;
+import com.webvidhi.alphamon.auth.modal.User;
+import com.webvidhi.alphamon.auth.service.UserService;
 
 import io.jsonwebtoken.Claims;
 
@@ -96,12 +92,6 @@ public class UserController {
 		 
 	}*/
 	
-	@GetMapping("/devices")
-	public List<Device> getDevices() {
-		
-		return userService.getAllDevices(SecurityContextHolder.getContext().getAuthentication().getName());
-		 
-	}
 	
 	@GetMapping("/testJwt")
 	public Claims getClaims (@RequestParam String token) {
