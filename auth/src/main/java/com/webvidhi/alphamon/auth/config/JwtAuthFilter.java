@@ -1,4 +1,4 @@
-package com.webvidhi.pubsub.config;
+package com.webvidhi.alphamon.auth.config;
 
 import java.io.IOException;
 import java.util.List;

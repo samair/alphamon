@@ -1,4 +1,4 @@
-package com.webvidhi.pubsub.service;
+package com.webvidhi.alphamon.auth.service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,12 +10,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.webvidhi.pubsub.config.JwtUtil;
-import com.webvidhi.pubsub.modal.APIKey;
-import com.webvidhi.pubsub.modal.Device;
-import com.webvidhi.pubsub.modal.JwtResponse;
-import com.webvidhi.pubsub.modal.User;
-import com.webvidhi.pubsub.repo.UsersRepository;
+import com.webvidhi.alphamon.auth.config.JwtUtil;
+import com.webvidhi.alphamon.auth.modal.APIKey;
+import com.webvidhi.alphamon.auth.modal.JwtResponse;
+import com.webvidhi.alphamon.auth.modal.User;
+import com.webvidhi.alphamon.auth.repo.UsersRepository;
 
 import io.jsonwebtoken.Claims;
 
@@ -91,10 +90,7 @@ public class UserService {
 	
 	}
 
-	public List<Device> getAllDevices(String userId) {
 
-		return usrRepo.getDevices(userId).getDevices();
-	}
 
 	public List<APIKey>  removeKey(String userID, String keyID) {
 		
