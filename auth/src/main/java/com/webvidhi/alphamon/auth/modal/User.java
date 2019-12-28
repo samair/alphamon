@@ -24,7 +24,7 @@ public class User {
 	
 	private List<APIKey> keyStore;
 	
-	//private List<Device> devices;
+	private List<Device> devices;
 
 	public void addkey(APIKey key) {
 		// TODO Auto-generated method stub

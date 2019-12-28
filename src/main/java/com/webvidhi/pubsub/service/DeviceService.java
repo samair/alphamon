@@ -26,4 +26,10 @@ public class DeviceService {
 		return user.getDevices();
 	}
 	
+	public List<Device> getDevice(String userId){
+		
+		User user = usrRepo.findByUserId(userId);
+	
+		return user.getDevices();
+	}
 }

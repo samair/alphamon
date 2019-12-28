@@ -16,7 +16,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtUtil {
 	
-	public static final long JWT_ACCESS_TOKEN_VALIDITY = 5*60;
+	public static final long JWT_ACCESS_TOKEN_VALIDITY = 10*60;
 	public static final long JWT_REFRESH_TOKEN_VALIDITY = 5*60*60*12;
 	//@Value("${jwt.secret}")
 	private String secret ="javainuse";
