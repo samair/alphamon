@@ -1,0 +1,35 @@
+zuul:
+  ignored-headers: Access-Control-Allow-Origin
+  routes:
+    user:
+      sensitiveHeaders: Cookie,Set-Cookie
+      path:
+      serviceId: USERSERVICE
+    device:
+      sensitiveHeaders: Cookie,Set-Cookie
+      #url: http://localhost:8081/v1/device
+      serviceId: DEVICESERVICE
+server:
+  port: 9090
+
+security:
+  ouath2:
+    resource:
+      jwt:
+        key-value: javainuse
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+spring:
+  application:
+    name: apigateway
+
+eureka:
+  client:
+    fetchRegistry: true
+ribbon:
+  ReadTimeout: 60000
+ 

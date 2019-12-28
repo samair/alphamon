@@ -17,10 +17,10 @@ public class SecurityJwtConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()  
 		
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().cors().disable()
+		.and()
 		.addFilterAfter(new JwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
-		.antMatchers("/v1/auth/validate").permitAll()
+		.antMatchers("/**").permitAll()
 		.anyRequest().authenticated();
 		
 		

@@ -19,4 +19,4 @@ docker build -t alphamon-mono:"DEV"$ALPHAMON_VER .
 echo "---- Build docker image END -----"
 
 echo "---- RUN docker image -----"
-docker run -d -p 8080:8080 alphamon-auth:"DEV"$ALPHAMON_VER
+docker run  -d -p 8081:8081 --memory="512m" alphamon-mono:"DEV"$ALPHAMON_VER

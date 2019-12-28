@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +29,9 @@ import io.jsonwebtoken.Claims;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 
-@RequestMapping("/v1/auth")
+
 public class UserController {
 	
 	@Autowired
@@ -65,14 +66,16 @@ public class UserController {
 	}
 	
 	@GetMapping("/apiKey")
-	public List<APIKey> saveKey(@RequestParam String userID) { 
-		
+	public List<APIKey> getKeys() { 
+		String userID = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("User ID:"+userID);
 		return userService.getAllKeys(userID);
 		
 		
 	}
 	@DeleteMapping("/apiKey")
-	public List<APIKey> deleteKey(@RequestParam String userID,@RequestParam String keyID) {
+	public List<APIKey> deleteKey(@RequestParam String keyID) {
+		String userID = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userService.removeKey(userID,keyID);
 	}
 	
