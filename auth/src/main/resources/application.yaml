@@ -4,3 +4,11 @@ spring:
   data:
     mongodb:
       uri: mongodb://heroku_nsr9m3mz:2t51ccg61668so1chakuj61huu@ds041248.mlab.com:41248/heroku_nsr9m3mz?retryWrites=false
+eureka:
+  client:
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discv-alphamon.herokuapp.com/eureka/
+  instance:
+    hostname: user-alphamon.herokuapp.com
+    nonSecurePort: 80

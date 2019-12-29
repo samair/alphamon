@@ -30,6 +30,15 @@ spring:
 eureka:
   client:
     fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discv-alphamon.herokuapp.com/eureka/
+  instance:
+    hostname: gateway-alphamon.herokuapp.com
 ribbon:
   ReadTimeout: 60000
+
+
+
+
+   
  
