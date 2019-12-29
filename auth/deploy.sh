@@ -20,5 +20,5 @@ docker build -t alphamon-auth:"DEV"$ALPHAMON_AUTH_VER .
 echo "---- Build docker image END -----"
 
 echo "---- RUN docker image -----"
-docker run --network=host --env MONGO_URL -d -p 8080:8080 --memory="512m" alphamon-auth:"DEV"$ALPHAMON_AUTH_VER
+docker run  --env MONGO_URL -d -p 8080:8080 --memory="512m" alphamon-auth:"DEV"$ALPHAMON_AUTH_VER
 

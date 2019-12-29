@@ -10,7 +10,7 @@ public class Device {
 	
 	private String deviceName;
 	
-	private String cpuUsage;
+	private String status;
 
 	
 }
