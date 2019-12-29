@@ -67,6 +67,7 @@ public class PubsubWebService {
 	@PostMapping("/register") 
 	public void register(@RequestHeader("Key") String
 	  apiKey, @RequestBody DeviceMsg regMsg) throws JsonProcessingException {
+		/*
 	  System.out.println("Request to register : "+regMsg.getDeviceID()+
 	  "Key: "+apiKey);
 	  
@@ -89,7 +90,7 @@ public class PubsubWebService {
 	  }
 	  
 	  
-	  } } } // publisher.publishAddDevice(regMsg); }
+	  } } */} // publisher.publishAddDevice(regMsg); }
 
 	@GetMapping("/apikey")
 	public String generateAPIKey() {
