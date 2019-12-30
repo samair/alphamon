@@ -2,6 +2,7 @@ package com.webvidhi.pubsub.modal;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -45,6 +46,11 @@ public class User {
 		
 	}
 	public void addDevice(Device d) {
+		if (null == devices)
+		{
+			devices = new ArrayList<>();
+					
+		}
 		devices.add(d);
 		
 	}
