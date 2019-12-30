@@ -93,6 +93,11 @@ public class PubsubWebService {
 					key.setDeviceId(regMsg.getDeviceID());
 					int index = user.getKeyStore().indexOf(key);
 					user.getKeyStore().set(index, key);
+					// if the device is not present add it
+					Device device = new Device();
+					device.set_id(regMsg.getDeviceID());
+					device.setDeviceName(regMsg.getName());
+					user.addDevice(device);
 					deviceService.createOrUpdate(user);
 					return new Status(0,"Registered Succesfully");
 				}
