@@ -32,4 +32,13 @@ public class DeviceService {
 	
 		return user.getDevices();
 	}
+
+	public User getUserByKey(String apiKey) {
+		User user = usrRepo.findByKey(apiKey);
+		return user;
+	}
+
+	public void createOrUpdate(User user) {
+		usrRepo.save(user);
+	}
 }

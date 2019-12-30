@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.webvidhi.pubsub.modal.APIKey;
 import com.webvidhi.pubsub.modal.Device;
 import com.webvidhi.pubsub.modal.DeviceMsg;
 import com.webvidhi.pubsub.modal.MetricSubscriber;
 import com.webvidhi.pubsub.modal.PerformanceMetrics;
+import com.webvidhi.pubsub.modal.Status;
+import com.webvidhi.pubsub.modal.User;
 import com.webvidhi.pubsub.service.DeviceService;
 import com.webvidhi.pubsub.service.InfluxDBServiceCloudV2;
 //import com.webvidhi.pubsub.service.InfluxDbService;
@@ -65,32 +68,41 @@ public class PubsubWebService {
 	}
 
 	@PostMapping("/register") 
-	public void register(@RequestHeader("Key") String
-	  apiKey, @RequestBody DeviceMsg regMsg) throws JsonProcessingException {
-		/*
-	  System.out.println("Request to register : "+regMsg.getDeviceID()+
-	  "Key: "+apiKey);
-	  
-	  //Check if it is related to a valid user User user=
-	  deviceService.getUserByKey(apiKey); if (null != user ) { //It is a valid key,
-	  now check if it used by any other device for (APIKey key :user.getKeyStore())
-	  { if (null !=key.getDeviceId() && key.getKeyID().contentEquals(apiKey) &&
-	  key.getDeviceId().contentEquals(regMsg.getDeviceID())) { //ok may be re
-	  regitering } else if (null !=key.getDeviceId() &&
-	  key.getKeyID().contentEquals(apiKey) &&
-	  !key.getDeviceId().contentEquals(regMsg.getDeviceID())){
-	  
-	  //This is wrong, it
-	  System.out.println("Cant register, you are already using this key.."); } else
-	  { // if (key.getKeyID().contentEquals(apiKey)) {
-	  key.setDeviceId(regMsg.getDeviceID()); int index
-	  =user.getKeyStore().indexOf(key); user.getKeyStore().set(index, key);
-	  userService.createOrUpdate(user);
-	  
-	  }
-	  
-	  
-	  } } */} // publisher.publishAddDevice(regMsg); }
+	public Status register(@RequestHeader("Key") String apiKey, @RequestBody DeviceMsg regMsg)
+   {
+		
+		System.out.println("Request to register : " + regMsg.getDeviceID() + "Key: " + apiKey);
+		// publisher.publishAddDevice(regMsg);
+		// Check if it is related to a valid user
+		User user = deviceService.getUserByKey(apiKey);
+		if (null != user) {
+			// It is a valid key, now check if it used by any other device
+			for (APIKey key : user.getKeyStore()) {
+				
+				if (null != key.getDeviceId() && key.getKeyID().contentEquals(apiKey)
+						&& key.getDeviceId().contentEquals(regMsg.getDeviceID())) {
+					// ok may be re registering
+				} else if (null != key.getDeviceId() && key.getKeyID().contentEquals(apiKey)
+						&& !key.getDeviceId().contentEquals(regMsg.getDeviceID())) {
+
+					// This is wrong, it
+					System.out.println("Cant register, you are already using this key..");
+					return new Status(-1,"Invalid Key - Used already");
+				} else { // if (key.getKeyID().contentEquals(apiKey)) {
+					key.setDeviceId(regMsg.getDeviceID());
+					int index = user.getKeyStore().indexOf(key);
+					user.getKeyStore().set(index, key);
+					deviceService.createOrUpdate(user);
+					return new Status(0,"Registered Succesfully");
+				}
+
+			}
+		}
+		return new Status(0,"Registered Succesfully");
+	}
+
+
+	
 
 	@GetMapping("/apikey")
 	public String generateAPIKey() {
