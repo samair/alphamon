@@ -9,53 +9,54 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webvidhi.pubsub.modal.DeviceMsg;
 import com.webvidhi.pubsub.modal.MetricSubscriber;
+import com.webvidhi.pubsub.modal.PerformanceMetrics;
 
 @Service
 
-public class RedisMessageSubscriber implements MessageListener{
-
+public class RedisMessageSubscriber implements MessageListener {
 
 	@Autowired
 	private SimpMessagingTemplate broker;
 
 	@Autowired
 	private MetricSubscriber subscriber;
-	
 
-	
 	@Override
 	public void onMessage(Message message, byte[] pattern) {
 		// TODO Auto-generated method stub
-		System.out.println("Recieved Message!!"+message);
-		
+		System.out.println("Recieved Message!!" + message);
+
 		if (message.getBody().toString().contentEquals("devices")) {
-			
+
 			sendDeviceMessages(message);
-		}
-		else {
+		} else {
 			sendEvnets(message);
 		}
-		
-	
-		
+
 	}
+
 	public void sendEvnets(Message message) {
-		
-		  for (String deviceId : subscriber.getSubscribersList()) {
-			  
-			  //Parse the message and send to appropriate client
-		  
-		   broker.convertAndSend("/topic/"+deviceId, message.toString());
-		   }
-		 
+
+		for (String deviceId : subscriber.getSubscribersList()) {
+
+			// Parse the message and send to appropriate client
+			ObjectMapper mapper = new ObjectMapper();
+			PerformanceMetrics metrics = mapper.convertValue(message.toString(), PerformanceMetrics.class);
+			if (metrics.getDeviceId().contentEquals(deviceId)) {
+				System.out.println("Sending message to : /topic/"+ deviceId);
+				broker.convertAndSend("/topic/" + deviceId, message.toString());
+			}
+		}
+
 	}
-	
+
 	public void sendDeviceMessages(Message msg) {
-		
+
 		String topicName = "/topic/devices";
 		System.out.println("Sending Device Message to  : " + topicName);
-		broker.convertAndSend(topicName,msg.toString() );
+		broker.convertAndSend(topicName, msg.toString());
 	}
 }

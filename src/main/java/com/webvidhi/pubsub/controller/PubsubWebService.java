@@ -92,6 +92,7 @@ public class PubsubWebService {
 					System.out.println("Found Key, associate deviceId now");
 					key.setDeviceId(regMsg.getDeviceID());
 					int index = user.getKeyStore().indexOf(key);
+					System.out.println("Index of key is : "+ index);
 					user.getKeyStore().set(index, key);
 					// if the device is not present add it
 					Device device = new Device();
