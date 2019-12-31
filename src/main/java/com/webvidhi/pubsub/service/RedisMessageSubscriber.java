@@ -9,6 +9,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webvidhi.pubsub.modal.DeviceMsg;
 import com.webvidhi.pubsub.modal.MetricSubscriber;
@@ -33,18 +35,24 @@ public class RedisMessageSubscriber implements MessageListener {
 
 			sendDeviceMessages(message);
 		} else {
-			sendEvnets(message);
+			try {
+				sendEvnets(message);
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
 
-	public void sendEvnets(Message message) {
+	public void sendEvnets(Message message) throws JsonProcessingException {
 
 		for (String deviceId : subscriber.getSubscribersList()) {
 
 			// Parse the message and send to appropriate client
 			ObjectMapper mapper = new ObjectMapper();
-			PerformanceMetrics metrics = mapper.convertValue(message.toString(), PerformanceMetrics.class);
+			PerformanceMetrics metrics = mapper.readValue(message.toString(), PerformanceMetrics.class);
+		
 			if (metrics.getDeviceId().contentEquals(deviceId)) {
 				System.out.println("Sending message to : /topic/"+ deviceId);
 				broker.convertAndSend("/topic/" + deviceId, message.toString());
