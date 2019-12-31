@@ -90,7 +90,10 @@ public class PubsubWebService {
 					return new Status(-1,"Invalid Key - Used already");
 				} else {  
 					System.out.println("Found Key, associate deviceId now");
+					
 					key.setDeviceId(regMsg.getDeviceID());
+					// push
+		
 					int index = user.getKeyStore().indexOf(key);
 					System.out.println("Index of key is : "+ index);
 					user.getKeyStore().set(index, key);
