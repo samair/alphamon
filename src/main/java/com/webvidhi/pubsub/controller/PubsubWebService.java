@@ -89,7 +89,8 @@ public class PubsubWebService {
 					// This is wrong, it
 					System.out.println("Cant register, you are already using this key..");
 					return new Status(-1,"Invalid Key - Used already");
-				} else {  
+				} else if ( null != key.getKeyID() && key.getKeyID().contentEquals(apiKey))
+				{  
 					System.out.println("Found Key, associate deviceId now");
 					
 					key.setDeviceId(regMsg.getDeviceID());
