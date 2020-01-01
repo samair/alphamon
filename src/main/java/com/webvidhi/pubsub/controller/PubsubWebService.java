@@ -75,6 +75,7 @@ public class PubsubWebService {
 		// publisher.publishAddDevice(regMsg);
 		// Check if it is related to a valid user
 		User user = deviceService.getUserByKey(apiKey);
+		int index =0;
 		if (null != user) {
 			// It is a valid key, now check if it used by any other device
 			for (APIKey key : user.getKeyStore()) {
@@ -93,8 +94,8 @@ public class PubsubWebService {
 					
 					key.setDeviceId(regMsg.getDeviceID());
 					// push
-		
-					int index = user.getKeyStore().indexOf(key);
+					
+					
 					System.out.println("Index of key is : "+ index);
 					user.getKeyStore().set(index, key);
 					// if the device is not present add it
@@ -105,7 +106,7 @@ public class PubsubWebService {
 					deviceService.createOrUpdate(user);
 					return new Status(0,"Registered Succesfully");
 				}
-
+				++index;
 			}
 		}
 		return new Status(0,"Registered Succesfully");
