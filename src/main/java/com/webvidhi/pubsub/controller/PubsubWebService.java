@@ -27,7 +27,7 @@ import com.webvidhi.pubsub.service.InfluxDBServiceCloudV2;
 //import com.webvidhi.pubsub.service.InfluxDbService;
 import com.webvidhi.pubsub.service.RedisMessagePublisher;
 
-@RestController
+@RestController("/device")
 @CrossOrigin
 
 public class PubsubWebService {

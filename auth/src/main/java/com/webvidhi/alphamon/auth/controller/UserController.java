@@ -28,7 +28,7 @@ import io.jsonwebtoken.Claims;
 
 
 
-@RestController
+@RestController("/user")
 @CrossOrigin(origins = "*")
 
 
