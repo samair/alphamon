@@ -28,10 +28,10 @@ import io.jsonwebtoken.Claims;
 
 
 
-@RestController("/user")
+@RestController
 @CrossOrigin(origins = "*")
 
-
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
