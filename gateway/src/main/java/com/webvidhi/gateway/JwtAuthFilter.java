@@ -82,7 +82,9 @@ System.out.println("Error!");
             response.setStatus(HttpServletResponse.SC_OK);
         } 
         else {
-        	  response.setHeader("Access-Control-Allow-Origin", "*");
+        	  response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        	  response.setHeader("Access-Control-Allow-Credentials", "true");
+        	  response.setHeader("X-Frame-Options", "sameorigin");
 	    filterChain.doFilter(request, response);
         }
 	}

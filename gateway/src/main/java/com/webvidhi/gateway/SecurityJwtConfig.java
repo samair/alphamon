@@ -23,7 +23,7 @@ public class SecurityJwtConfig extends WebSecurityConfigurerAdapter{
 		.and()
 		.addFilterAfter(new JwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
-		.antMatchers("/user/validate").permitAll()
+		.antMatchers("/user/validate","/device/**").permitAll()
 		.anyRequest().authenticated();
 		
 		

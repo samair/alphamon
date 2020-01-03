@@ -62,14 +62,16 @@ public class UserService {
 		return usrRepo.findByKey(key);
 	}
 	
-	public void addKeys(String userId,String key, String description) {
+	public List<APIKey>  addKeys(String userId,String key, String description) {
 		
 		User user = usrRepo.findByUserId(userId);
 		APIKey apiKey = new APIKey();
 		apiKey.setKeyID(key);
 		apiKey.setDescription(description);
+
 		user.addkey(apiKey);
 		usrRepo.save(user);
+		return user.getKeyStore();
 		
 	}
 /*

@@ -2,6 +2,7 @@ package com.webvidhi.alphamon.auth.modal;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -28,6 +29,9 @@ public class User {
 
 	public void addkey(APIKey key) {
 		// TODO Auto-generated method stub
+		if (null == keyStore ) {
+			keyStore = new ArrayList<APIKey>();
+		}
 		keyStore.add(key);
 		
 	}

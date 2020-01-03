@@ -49,7 +49,7 @@ public class UserController {
 	}
 	
 	
-	@PostMapping("/apikey")
+	@GetMapping("/key")
 	public String generateAPIKey() {
 		
 		 String generatedString = RandomStringUtils.randomAlphanumeric(30);
@@ -57,15 +57,15 @@ public class UserController {
 		return generatedString;
 	}
 	
-	@PutMapping("/apiKey")
-	public void saveKey(@RequestBody Map<String, String> keyInfo) { 
-		
-		userService.addKeys(keyInfo.get("userID"), keyInfo.get("keyID"), keyInfo.get("description"));
-		
+	@PostMapping("/apiKey")
+	public List<APIKey> saveKey(@RequestBody Map<String, String> keyInfo) { 
+		String userID = SecurityContextHolder.getContext().getAuthentication().getName();
+		return userService.addKeys(userID, keyInfo.get("keyID"), keyInfo.get("description"));
+		 
 		
 	}
 	
-	@GetMapping("/apiKey")
+	@GetMapping("/keys")
 	public List<APIKey> getKeys() { 
 		String userID = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println("User ID:"+userID);
