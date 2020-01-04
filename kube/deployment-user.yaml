@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: alphamon-user
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: alphamon-user
+    spec:
+      containers:
+        - name: alphamon-user
+          image: gcr.io/alphamon-982144/alphamon-user:v6
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /user/key
+              port: 8080
+            initialDelaySeconds: 45
+            periodSeconds: 10
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alphamon-user
+  labels:
+    name: alphamon-user
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: alphamon-user
+  type: LoadBalancer

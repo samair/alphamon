@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: alphamon-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /user/*
+        backend:
+          serviceName: alphamon-user
+          servicePort: 8080
+      - path: /device/*
+        backend:
+          serviceName: alphamon-device
+          servicePort: 8081
